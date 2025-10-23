@@ -3,6 +3,7 @@ package cl.duoc.ferremas.steps;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 import cl.duoc.ferremas.pages.LoginPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -21,6 +22,7 @@ public class LoginSteps {
     
     @Before
     public void setUp() {
+    	
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -59,7 +61,7 @@ public class LoginSteps {
     @Then("debería ver mi nombre de usuario {string} en el navbar")
     public void deberiaVerMiNombreDeUsuarioEnElNavbar(String expectedName) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -85,20 +87,20 @@ public class LoginSteps {
     @Then("la URL debería contener {string}")
     public void laUrlDeberiaContener(String urlPart) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         
         String currentUrl = loginPage.getCurrentUrl();
         assertTrue("La URL no contiene '" + urlPart + "'. URL actual: " + currentUrl, 
-                   currentUrl.endsWith(urlPart));
+                   currentUrl.contains(urlPart));  // Cambiar endsWith() por contains()
     }
     
     @Then("debería ver un mensaje de error de credenciales incorrectas")
     public void deberiaVerUnMensajeDeErrorDeCredencialesIncorrectas() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

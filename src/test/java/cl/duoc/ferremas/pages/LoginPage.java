@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 
 public class LoginPage {
     
@@ -18,7 +19,11 @@ public class LoginPage {
     private By emailField = By.xpath("//*[@id='email']");
     private By passwordField = By.xpath("//*[@id='password']");
     private By ingresarButton = By.xpath("/html/body/app-root/div/main/app-login/div/form/button");
-    private By userNameButton = By.xpath("//*[@id='navbarColor01']/div/div[2]/button");
+    
+    // Dos posibles localizadores para el nombre de usuario
+    private By userNameButton1 = By.xpath("//*[@id='navbarColor01']/div/div[2]/button");
+    private By userNameButton2 = By.xpath("//*[@id='navbarColor01']/div[2]/div/button");
+    
     private By errorAlert = By.xpath("/html/body/app-root/div/main/app-login/div/div");
     private By errorMessage = By.xpath("/html/body/app-root/div/main/app-login/div/div/div");
     
@@ -67,8 +72,21 @@ public class LoginPage {
     public String getUserNameText() {
         try {
             Thread.sleep(3000);
-            WebElement userButton = wait.until(ExpectedConditions.visibilityOfElementLocated(userNameButton));
-            return userButton.getText();
+            
+            // Intentar con el primer localizador
+            try {
+                WebElement userButton = wait.until(ExpectedConditions.visibilityOfElementLocated(userNameButton1));
+                return userButton.getText();
+            } catch (Exception e1) {
+                // Si falla, intentar con el segundo localizador
+                try {
+                    WebElement userButton = wait.until(ExpectedConditions.visibilityOfElementLocated(userNameButton2));
+                    return userButton.getText();
+                } catch (Exception e2) {
+                    System.out.println("No se encontró el elemento con ninguno de los dos XPath");
+                    return "Elemento no encontrado";
+                }
+            }
         } catch (Exception e) {
             return "Elemento no encontrado";
         }

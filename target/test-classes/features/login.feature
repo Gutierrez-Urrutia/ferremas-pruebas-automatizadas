@@ -12,9 +12,13 @@ Feature: Login en Ferremas
     And la URL debería contener "<url_esperada>"
 
     Examples:
-      | email               | password  | nombre_esperado | url_esperada |
-      | pablo@mail.com      | macoy123  | PABLO           | /            |
-      | admin@ferremas.cl   | admin123  | ADMIN           | /admin       |
+      | email                 | password      | nombre_esperado | url_esperada |
+      | pablo@mail.com        | macoy123      | PABLO           | /            |
+      | admin@ferremas.cl     | admin123      | ADMIN           | /admin       |
+      | vendedor@ferremas.cl  | vendedor123   | VENDEDOR        | /ventas      |
+      | auditor@ferremas.cl   | auditor123    | AUDITOR         | /auditor     |
+      | bodeguero@ferremas.cl | bodeguero123  | BODEGUERO       | /bodega      |
+      | cliente@ferremas.cl   | cliente123    | CLIENTE         | /            |
 
   Scenario Outline: Login fallido con credenciales inválidas
     Given que estoy en la página de login de Ferremas
@@ -29,3 +33,4 @@ Feature: Login en Ferremas
       | pablo@mail.com               | passwordIncorrecto  |
       | usuarioincorrecto@mail.com   | macoy123            |
       | incorrecto@mail.com          | passwordIncorrecto  |
+      |                              |                     |
